@@ -1,14 +1,8 @@
 import 'package:get/get.dart';
 import '../../../core/utils/constants.dart';
+import 'base_provider.dart';
 
-class CompteProvider extends GetConnect {
-  @override
-  void onInit() {
-    super.onInit();
-    httpClient.baseUrl = ApiConstants.baseUrl;
-    timeout = const Duration(seconds: 30);
-    httpClient.defaultContentType = 'application/json';
-  }
+class CompteProvider extends BaseProvider {
 
   Future<Response<double>> getSolde() async {
     final response = await get(
@@ -32,24 +26,12 @@ class CompteProvider extends GetConnect {
     return response;
   }
 
+
+
   Future<Response<Map<String, dynamic>>> getProfil() async {
     final response = await get<Map<String, dynamic>>(
       ApiConstants.profilEndpoint,
     );
     return response;
-  }
-
-  void setToken(String token) {
-    httpClient.addRequestModifier<dynamic>((request) {
-      request.headers['Authorization'] = 'Bearer $token';
-      return request;
-    });
-  }
-
-  void removeToken() {
-    httpClient.addRequestModifier<dynamic>((request) {
-      request.headers.remove('Authorization');
-      return request;
-    });
   }
 }

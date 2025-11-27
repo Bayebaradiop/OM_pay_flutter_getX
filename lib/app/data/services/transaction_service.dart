@@ -68,7 +68,7 @@ class TransactionService extends GetxService {
       
       return false;
     } catch (e) {
-      print('❌ Exception transfert: $e');
+      print(' Exception transfert: $e');
       return false;
     } finally {
       isProcessing.value = false;
@@ -98,7 +98,7 @@ class TransactionService extends GetxService {
       
       return false;
     } catch (e) {
-      print('❌ Exception paiement: $e');
+      print(' Exception paiement: $e');
       return false;
     } finally {
       isProcessing.value = false;

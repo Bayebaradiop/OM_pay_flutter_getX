@@ -3,15 +3,9 @@ import '../../../core/utils/constants.dart';
 import '../models/response/transaction_response.dart';
 import '../models/request/transfert_request.dart';
 import '../models/request/paiement_request.dart';
+import 'base_provider.dart';
 
-class TransactionProvider extends GetConnect {
-  @override
-  void onInit() {
-    super.onInit();
-    httpClient.baseUrl = ApiConstants.baseUrl;
-    timeout = const Duration(seconds: 30);
-    httpClient.defaultContentType = 'application/json';
-  }
+class TransactionProvider extends BaseProvider {
 
   Future<Response<List<TransactionResponse>>> getHistorique(String numeroCompte) async {
     final endpoint = '${ApiConstants.historiqueEndpoint}/$numeroCompte';
@@ -44,6 +38,8 @@ class TransactionProvider extends GetConnect {
     return response;
   }
 
+
+
   Future<Response<TransactionResponse>> transfert(TransfertRequest request) async {
     final response = await post(
       ApiConstants.transfertEndpoint,
@@ -74,19 +70,5 @@ class TransactionProvider extends GetConnect {
       },
     );
     return response;
-  }
-
-  void setToken(String token) {
-    httpClient.addRequestModifier<dynamic>((request) {
-      request.headers['Authorization'] = 'Bearer $token';
-      return request;
-    });
-  }
-
-  void removeToken() {
-    httpClient.addRequestModifier<dynamic>((request) {
-      request.headers.remove('Authorization');
-      return request;
-    });
   }
 }

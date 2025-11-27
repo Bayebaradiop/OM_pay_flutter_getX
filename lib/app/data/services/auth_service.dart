@@ -69,6 +69,8 @@ class AuthService extends GetxService {
     }
   }
 
+
+
   Future<AuthResponse> register(RegisterRequest request) async {
     try {
       final response = await _authProvider.register(request);
@@ -82,6 +84,8 @@ class AuthService extends GetxService {
       throw Exception('Erreur d\'inscription: ${e.toString()}');
     }
   }
+
+
 
   Future<AuthResponse> verifyCode(String telephone, String codeSecret) async {
     try {
@@ -112,6 +116,7 @@ class AuthService extends GetxService {
       throw Exception('Erreur de vérification: ${e.toString()}');
     }
   }
+  
 
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
